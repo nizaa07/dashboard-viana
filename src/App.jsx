@@ -1,25 +1,16 @@
-import { Route, Routes } from "react-router-dom";
-import PageRoutes from "./config/PageRoutes.json";
-import Pages from "./pages/Pages";
-import Navbar from "./components/Navbar";
-import Sidenav from "./components/Sidenav";
-import { useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { Dashboard, Auth } from "@/layouts";
 
 function App() {
   return (
-    <div className="flex flex-1 font-sans">
-      <Sidenav />
-      <div className="w-full h-screen bg-slate-300">
-        <Navbar />
-        <div className="m-4">
-          <Routes>
-            {PageRoutes.map((route, index) => {
-              return <Route path={route.path} element={<Pages name={route.component} />} key={index} />;
-            })}
-          </Routes>
-        </div>
-      </div>
-    </div>
+    <Routes>
+      <Route path="/dashboard/*" element={<Dashboard />} />
+      <Route path="/auth/*" element={<Auth />} />
+      <Route
+        path="*"
+        element={<Navigate to="/dashboard/vehicle_count" replace />}
+      />
+    </Routes>
   );
 }
 
