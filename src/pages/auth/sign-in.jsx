@@ -40,6 +40,11 @@ export function SignIn() {
             <Button variant="gradient" fullWidth>
               Sign In
             </Button>
+            <a href="https://sso.issp.sccic-dev.com/login?app_id=63d22ce236ccee7566553862&redirect_uri=https://127.0.0.1:5173/dashboard/vehicle_count">
+              <Button variant="gradient" fullWidth>
+                SSO
+              </Button>
+            </a>
             <Typography variant="small" className="mt-6 flex justify-center">
               Don't have an account?
               <Link to="/auth/sign-up">

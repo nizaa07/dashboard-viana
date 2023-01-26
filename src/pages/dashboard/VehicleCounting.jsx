@@ -28,19 +28,15 @@ export function VehicleCounting() {
   const [truk, setTruk] = useState([]);
   const [state, setState] = useState(undefined);
 
-  const { data: rawData } = useSWR(
-    `https://rest-viana.gotos.id/charts`,
-    fetcher,
-    {
-      refreshInterval: 1000,
-    }
-  );
+  const { data: rawData } = useSWR(`http://localhost:4100/charts`, fetcher, {
+    refreshInterval: 1000,
+  });
 
   useEffect(() => {
     if (rawData) {
       const date = rawData.date
         .split(",")
-        .map((item) => moment(item).format("MMMM Do YYYY, h:mm:ss a"));
+        .map((item) => moment(item).format("MMMM Do YYYY, h:mm :ss a"));
       const sepeda = rawData.sepeda.split(",").map((item) => parseInt(item));
       const motor = rawData.motor.split(",").map((item) => parseInt(item));
       const mobil = rawData.mobil.split(",").map((item) => parseInt(item));
