@@ -38,29 +38,31 @@ export function VehicleCounting() {
 
   useEffect(() => {
     if (rawData) {
-      setInterval(() => {
-        setDate(
-          rawData.date
-            .split(",")
-            .map((item) => moment(item).format("MMMM Do YYYY, h:mm:ss a"))
-        );
-        setSepeda(rawData.sepeda.split(",").map((item) => parseInt(item)));
-        setMotor(rawData.motor.split(",").map((item) => parseInt(item)));
-        setMobil(rawData.mobil.split(",").map((item) => parseInt(item)));
-        setBus(rawData.bus.split(",").map((item) => parseInt(item)));
-        setTruk(rawData.truk.split(",").map((item) => parseInt(item)));
-      }, 1000);
+      const date = rawData.date
+        .split(",")
+        .map((item) => moment(item).format("MMMM Do YYYY, h:mm:ss a"));
+      const sepeda = rawData.sepeda.split(",").map((item) => parseInt(item));
+      const motor = rawData.motor.split(",").map((item) => parseInt(item));
+      const mobil = rawData.mobil.split(",").map((item) => parseInt(item));
+      const bus = rawData.bus.split(",").map((item) => parseInt(item));
+      const truk = rawData.truk.split(",").map((item) => parseInt(item));
+      setDate(sepeda);
+      setSepeda(motor);
+      setMotor(mobil);
+      setMobil(bus);
+      setBus(truk);
+      setTruk(date);
 
       setState({
         sepeda: sepeda,
         motor: motor,
         mobil: mobil,
         bus: bus,
-        truk: [50, 40, 300, 320, 500, 350, 200, 230, 500],
+        truk: truk,
         date: date,
       });
     }
-  }, [date, sepeda, motor, mobil, bus, truk, rawData]);
+  }, [rawData]);
   console.log(state);
   return (
     <Fragment>
