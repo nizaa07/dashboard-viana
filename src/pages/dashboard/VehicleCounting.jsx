@@ -14,7 +14,7 @@ import io from "socket.io-client";
 
 import VAChart from "@/components/VideoAnalytic/Chart";
 import VATable from "@/components/VideoAnalytic/Table";
-import KendaraanHourly from "@/components/VideoAnalytic/Kendaraan/KendaraanHourly";
+import Kendaraan from "@/components/VideoAnalytic/Kendaraan";
 
 export function VehicleCounting() {
   const playerRef1 = useRef(null);
@@ -66,6 +66,7 @@ export function VehicleCounting() {
   );
 
   useEffect(() => {
+    document.title = "Vehicle Counting";
     if (chartData && kendaraanData) {
       setChartState({
         date: chartData.date,
@@ -77,61 +78,17 @@ export function VehicleCounting() {
       });
       setKendaraanTable(kendaraanData);
     }
-    if (
-      kendaraanPerJam &&
-      kendaraanPerHari &&
-      kendaraanPerMinggu &&
-      kendaraanPerBulan
-    ) {
-      const kendaraanPerJamTemp = [];
-      for (const kendaraan of kendaraanPerJam.data) {
-        const tempkendaraan = kendaraan;
-        kendaraanPerJamTemp.push(tempkendaraan);
-      }
-      const kendaraanPerHariTemp = [];
-      for (const kendaraan of kendaraanPerHari.data) {
-        const tempkendaraan = kendaraan;
-        kendaraanPerHariTemp.push(tempkendaraan);
-      }
-      const kendaraanPerMingguTemp = [];
-      for (const kendaraan of kendaraanPerMinggu.data) {
-        const tempKendaraan = kendaraan;
-        kendaraanPerMingguTemp.push(tempKendaraan);
-      }
-      const kendaraanPerBulanTemp = [];
-      for (const kendaraan of kendaraanPerBulan.data) {
-        const tempKendaraan = kendaraan;
-        kendaraanPerBulanTemp.push(tempKendaraan);
-      }
-      kendaraanPerJamTemp.reverse();
-      kendaraanPerHariTemp.reverse();
-      kendaraanPerMingguTemp.reverse();
-      kendaraanPerBulanTemp.reverse();
-      setKendaraanState({
-        kendaraanPerJam: kendaraanPerJamTemp,
-        kendaraanPerHari: kendaraanPerHariTemp,
-        kendaraanPerMinggu: kendaraanPerMingguTemp,
-        kendaraanPerBulan: kendaraanPerBulanTemp,
-      });
-    }
-  }, [
-    chartData,
-    kendaraanData,
-    kendaraanPerJam,
-    kendaraanPerHari,
-    kendaraanPerMinggu,
-    kendaraanPerBulan,
-  ]);
+  }, [chartData, kendaraanData]);
 
   const Spinner = () => {
     return (
-      <div role="status" class="max-w-full animate-pulse p-8">
-        <div class="mb-4 h-2.5 w-48 rounded-full bg-gray-200 dark:bg-gray-700"></div>
-        <div class="mb-2.5 h-2 max-w-full rounded-full bg-gray-200 dark:bg-gray-700"></div>
-        <div class="mb-2.5 h-2 rounded-full bg-gray-200 dark:bg-gray-700"></div>
-        <div class="mb-2.5 h-2 max-w-full rounded-full bg-gray-200 dark:bg-gray-700"></div>
-        <div class="mb-2.5 h-2 max-w-full rounded-full bg-gray-200 dark:bg-gray-700"></div>
-        <div class="h-2 max-w-full rounded-full bg-gray-200 dark:bg-gray-700"></div>
+      <div role="status" className="max-w-full animate-pulse p-8">
+        <div className="mb-4 h-2.5 w-48 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+        <div className="mb-2.5 h-2 max-w-full rounded-full bg-gray-200 dark:bg-gray-700"></div>
+        <div className="mb-2.5 h-2 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+        <div className="mb-2.5 h-2 max-w-full rounded-full bg-gray-200 dark:bg-gray-700"></div>
+        <div className="mb-2.5 h-2 max-w-full rounded-full bg-gray-200 dark:bg-gray-700"></div>
+        <div className="h-2 max-w-full rounded-full bg-gray-200 dark:bg-gray-700"></div>
       </div>
     );
   };
@@ -195,13 +152,7 @@ export function VehicleCounting() {
       </div>
 
       <div>
-        <Card>
-          {/* {kendaraanState ? (
-            <KendaraanHourly data={kendaraanState.kendaraanPerJam} />
-          ) : (
-            <div>Loading...</div>
-          )} */}
-        </Card>
+        <Kendaraan />
       </div>
     </Fragment>
   );

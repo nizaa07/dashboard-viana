@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Button, Typography, CardHeader } from "@material-tailwind/react";
 import moment from "moment";
-import React from "react";
+import Chart from "react-apexcharts";
 
 function KendaraanHourly({ data }) {
   const [dateList, setDateList] = useState([]);
-  const [lineData, setLineData] = useState();
+  const [state, setState] = useState();
+  const [lineData, setLineData] = useState(undefined);
   const [index, setIndex] = useState(0);
   const [init, setInit] = useState(true);
 
@@ -41,13 +43,14 @@ function KendaraanHourly({ data }) {
       ],
     });
     setState({ xData: tempXData, yData: tempYData });
-    stateTemp({ xData: tempXData, yData: tempYData });
-  }, [data]);
+  }, [data, dateList, index, state, init]);
 
   return (
-    <div>
-      <div className="mb-4 flex flex-row items-center justify-between">
-        <button
+    <div className="p-4">
+      <div className="mb-4 mt-8 flex flex-row items-center justify-between">
+        <Button
+          color="green"
+          variant="gradient"
           type="button"
           className={`rounded-md border-r border-gray-100 bg-gray-800 py-2 px-3 text-white hover:bg-red-700 hover:text-white ${
             index === 0 ? "invisible" : ""
@@ -56,14 +59,18 @@ function KendaraanHourly({ data }) {
             setIndex(() => index - 1);
           }}
         >
-          {"<"}
-        </button>
+          <Typography>{"<"}</Typography>
+        </Button>
         <div className="text-xl font-bold">
-          {dateList.length > 0
-            ? moment(dateList[index]).format("DD MMMM YYYY")
-            : "Loading..."}
+          <Typography variant="h4" color="green" textGradient>
+            {dateList.length > 0
+              ? moment(dateList[index]).format("DD MMMM YYYY")
+              : "Loading..."}
+          </Typography>
         </div>
-        <button
+        <Button
+          color="green"
+          variant="gradient"
           type="button"
           className={`rounded-md border-r border-gray-100 bg-gray-800 py-2 px-3 text-white hover:bg-red-700 hover:text-white ${
             index === dateList.length - 1 ? "invisible" : ""
@@ -72,9 +79,34 @@ function KendaraanHourly({ data }) {
             setIndex(() => index + 1);
           }}
         >
-          {">"}
-        </button>
-        <div></div>
+          <Typography>{">"}</Typography>
+        </Button>
+      </div>
+      <div>
+        {!lineData ? (
+          <p>Loading</p>
+        ) : (
+          <>
+            <Chart
+              options={{
+                chart: {
+                  id: "basic-bar",
+                },
+                xaxis: {
+                  categories: lineData.labels,
+                },
+              }}
+              series={[
+                {
+                  name: "series-1",
+                  data: lineData.datasets[0].data,
+                },
+              ]}
+              type="line"
+              height={400}
+            />
+          </>
+        )}
       </div>
     </div>
   );

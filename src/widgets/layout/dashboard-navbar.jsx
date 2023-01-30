@@ -84,7 +84,8 @@ export function DashboardNavbar() {
           >
             <Bars3Icon strokeWidth={3} className="h-6 w-6 text-blue-gray-500" />
           </IconButton>
-          <a href="https://sso.issp.sccic-dev.com/login?app_id=63d22ce236ccee7566553862&redirect_uri=https://localhost:5173/dashboard/vehicle_count">
+          {/* <a href=></a> */}
+          <Link to={`/login`}>
             <Button
               variant="text"
               color="blue-gray"
@@ -100,7 +101,7 @@ export function DashboardNavbar() {
             >
               <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
             </IconButton>
-          </a>
+          </Link>
 
           {/* <IconButton
             variant="text"
