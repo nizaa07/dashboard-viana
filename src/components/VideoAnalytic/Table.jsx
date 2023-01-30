@@ -13,7 +13,6 @@ import {
 function VATable({ state }) {
   const tableRow = ["Tanggal", "Sepeda", "Motor", "Mobil", "Bus", "Truk"];
   const data = state;
-  console.log(data.date);
   return (
     <table>
       <thead>
@@ -33,36 +32,36 @@ function VATable({ state }) {
         </tr>
       </thead>
       <tbody>
-        {data.date.map((item, idx) => (
+        {data.map((item, idx) => (
           <tr key={idx} className="text-center">
             <th>
               <Typography className="text-xs font-semibold text-blue-gray-600">
-                {item}
+                {item.date.replace(/T|Z/g, "  - ").slice(0, -8)}
               </Typography>
             </th>
             <td className="py-3 px-5">
               <Typography className="text-xs font-semibold text-blue-gray-600">
-                {data.sepeda[idx]}
+                {item.sepeda}
               </Typography>
             </td>
             <td className="py-3 px-5">
               <Typography className="text-xs font-semibold text-blue-gray-600">
-                {data.motor[idx]}
+                {item.motor}
               </Typography>
             </td>
             <td className="py-3 px-5">
               <Typography className="text-xs font-semibold text-blue-gray-600">
-                {data.mobil[idx]}
+                {item.mobil}
               </Typography>
             </td>
             <td className="py-3 px-5">
               <Typography className="text-xs font-semibold text-blue-gray-600">
-                {data.bus[idx]}
+                {item.bus}
               </Typography>
             </td>
             <td className="py-3 px-5">
               <Typography className="text-xs font-semibold text-blue-gray-600">
-                {data.truk[idx]}
+                {item.truk}
               </Typography>
             </td>
           </tr>

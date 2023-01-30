@@ -35,6 +35,7 @@ function VAChart({ state }) {
     },
     plotOptions: {
       bar: {
+        barHeight: "100%",
         horizontal: true,
         dataLabels: {
           position: "top",
