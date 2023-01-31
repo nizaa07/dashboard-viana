@@ -10,9 +10,11 @@ import {
 import routes from "@/routes";
 import { useMaterialTailwindController, setOpenConfigurator } from "@/context";
 
-export function Dashboard() {
+export function Dashboard({ isLogin }) {
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavType } = controller;
+  const loginCheck = isLogin;
+  console.log(loginCheck);
 
   return (
     <div className="min-h-screen bg-blue-gray-50/50">

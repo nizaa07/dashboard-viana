@@ -86,8 +86,6 @@ function Kendaraan() {
     kendaraanPerBulan,
   ]);
 
-  console.log(kendaraanState);
-
   return (
     <div className="grid grid-cols-2 gap-4">
       <Card className="mt-2">
