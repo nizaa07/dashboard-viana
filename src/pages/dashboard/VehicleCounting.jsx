@@ -24,11 +24,15 @@ export function VehicleCounting() {
   const [kendaraanTable, setKendaraanTable] = useState(undefined);
   const [kendaraanState, setKendaraanState] = useState(undefined);
 
-  const { data: chartData } = useSWR(`http://localhost:4100/charts`, fetcher, {
-    refreshInterval: 1000,
-  });
+  const { data: chartData } = useSWR(
+    `https://viana.livinglab.id/api/charts`,
+    fetcher,
+    {
+      refreshInterval: 1000,
+    }
+  );
   const { data: kendaraanData } = useSWR(
-    `http://localhost:4100/kendaraan`,
+    `https://viana.livinglab.id/api/kendaraan`,
     fetcher,
     {
       refreshInterval: 1000,
@@ -64,6 +68,7 @@ export function VehicleCounting() {
       refreshInterval: 5000,
     }
   );
+  console.log(import.meta.env.VIANA_ENDPOINT);
 
   useEffect(() => {
     document.title = "Vehicle Counting";
