@@ -8,11 +8,11 @@ import {
   UserPlusIcon,
 } from "@heroicons/react/24/solid";
 import {
-  Home,
-  Profile,
-  Tables,
-  Notifications,
   VehicleCounting,
+  InputEndpoint,
+  CrackDetection,
+  AnomalyDetection,
+  PenangkapanIkanTerukur,
 } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
 
@@ -22,6 +22,7 @@ const icon = {
 
 export const routes = [
   {
+    title: "Dashboard",
     layout: "dashboard",
     pages: [
       {
@@ -30,6 +31,27 @@ export const routes = [
         path: "/vehicle_count",
         title: "Vehicle Counting",
         element: <VehicleCounting />,
+      },
+      {
+        icon: <TruckIcon {...icon} />,
+        name: "Crack Detection",
+        path: "/crack_detection",
+        title: "Crack Detection",
+        element: <CrackDetection />,
+      },
+      {
+        icon: <TruckIcon {...icon} />,
+        name: "Anomaly Detection",
+        path: "/anomaly_detection",
+        title: "Anomaly Detection",
+        element: <AnomalyDetection />,
+      },
+      {
+        icon: <TruckIcon {...icon} />,
+        name: "Penangkapan Ikan Terukur",
+        path: "/penangkapan_ikan_terukur",
+        title: "Penangkapan Ikan Terukur",
+        element: <PenangkapanIkanTerukur />,
       },
       // {
       //   icon: <HomeIcon {...icon} />,
@@ -57,24 +79,18 @@ export const routes = [
       // },
     ],
   },
-  // {
-  //   title: "auth pages",
-  //   layout: "auth",
-  //   pages: [
-  //     {
-  //       icon: <ArrowRightOnRectangleIcon {...icon} />,
-  //       name: "sign in",
-  //       path: "/sign-in",
-  //       element: <SignIn />,
-  //     },
-  //     {
-  //       icon: <UserPlusIcon {...icon} />,
-  //       name: "sign up",
-  //       path: "/sign-up",
-  //       element: <SignUp />,
-  //     },
-  //   ],
-  // },
+  {
+    title: "Input Endpoint",
+    layout: "dashboard",
+    pages: [
+      {
+        icon: <ArrowRightOnRectangleIcon {...icon} />,
+        name: "Input Endpoint",
+        path: "/input_endpoint",
+        element: <InputEndpoint />,
+      },
+    ],
+  },
 ];
 
 export default routes;

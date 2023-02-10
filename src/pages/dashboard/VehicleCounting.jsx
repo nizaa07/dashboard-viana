@@ -7,6 +7,7 @@ import {
 } from "@material-tailwind/react";
 import useSWR from "swr";
 import fetcher from "@/configs/fetcher";
+import ReactHlsPlayer from "react-hls-player/dist";
 
 import NoData from "@/assets/illust/no-data.jpg";
 const socket = io(`wss://socket-viana.gotos.id`);
@@ -18,11 +19,28 @@ import Kendaraan from "@/components/VideoAnalytic/Kendaraan";
 
 export function VehicleCounting() {
   const playerRef1 = useRef(null);
-  const [imageUrl, setImageUrl] = useState();
 
   const [chartState, setChartState] = useState(undefined);
   const [kendaraanTable, setKendaraanTable] = useState(undefined);
-  const [kendaraanState, setKendaraanState] = useState(undefined);
+  const [imageUrl, setImageUrl] = useState();
+
+  useEffect(() => {
+    socket.on("connect", () => {
+      socket.emit("ping");
+    });
+
+    // socket.on('disconnect', () => {})
+
+    socket.on("payload", (data) => {
+      setImageUrl(data.image_url);
+    });
+
+    return () => {
+      socket.off("connect");
+      socket.off("disconnect");
+      socket.off("payload");
+    };
+  }, []);
 
   const { data: chartData } = useSWR(
     `https://viana.livinglab.id/api/charts`,
@@ -38,37 +56,10 @@ export function VehicleCounting() {
       refreshInterval: 1000,
     }
   );
-  const { data: kendaraanPerJam } = useSWR(
-    `https://api.issp.sccic-dev.com/api/ll-ddg-analitik-mobilitis?sort=createdAt%3Adesc&pagination[limit]=2000`,
-    fetcher,
-    {
-      refreshInterval: 5000,
-    }
+  const { data: cctvData } = useSWR(
+    `https://viana.livinglab.id/api/cctv`,
+    fetcher
   );
-  const { data: kendaraanPerHari } = useSWR(
-    `https://api.issp.sccic-dev.com/api/ll-ddg-analitik-mobiliti-days?sort=createdAt%3Adesc&pagination[limit]=2000`,
-    fetcher,
-    {
-      refreshInterval: 5000,
-    }
-  );
-
-  const { data: kendaraanPerMinggu } = useSWR(
-    `https://api.issp.sccic-dev.com/api/ll-ddg-analitik-mobiliti-mingguans?sort=createdAt%3Adesc&pagination[limit]=2000`,
-    fetcher,
-    {
-      refreshInterval: 5000,
-    }
-  );
-
-  const { data: kendaraanPerBulan } = useSWR(
-    `https://api.issp.sccic-dev.com/api/ll-ddg-analitik-mobiliti-bulanans?sort=createdAt%3Adesc&pagination[limit]=2000`,
-    fetcher,
-    {
-      refreshInterval: 5000,
-    }
-  );
-  console.log(import.meta.env.VIANA_ENDPOINT);
 
   useEffect(() => {
     document.title = "Vehicle Counting";
@@ -104,12 +95,25 @@ export function VehicleCounting() {
         <div className="w-1/3">
           <Card>
             <CardHeader variant="gradient" color={"green"} className="p-4">
-              <img
+              {/* <img
                 className="rounded-xl"
                 src={imageUrl || NoData}
                 width="100%"
                 alt=""
-              />
+              /> */}
+              {cctvData ? (
+                <ReactHlsPlayer
+                  src="http://45.118.114.26:80/camera/Cikapayang1.m3u8"
+                  autoPlay={true}
+                  controls={false}
+                  width="100%"
+                  height="auto"
+                  playerRef={playerRef1}
+                  className="rounded"
+                />
+              ) : (
+                <Spinner />
+              )}
             </CardHeader>
             <CardBody className="p-6">
               <Typography variant="h6" color="blue-gray">

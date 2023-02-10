@@ -1,4 +1,10 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  redirect,
+  useNavigate,
+} from "react-router-dom";
 import { Dashboard } from "@/layouts";
 import Login from "./pages/auth/Login";
 import { useSearchParams } from "react-router-dom";
@@ -8,6 +14,7 @@ function App() {
   const sso_code = searchParams.get("sso_code");
   const [isLogin, setIsLogin] = useState(false);
   const [loginUser, setLoginUser] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     let requestOptions = {

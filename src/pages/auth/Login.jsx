@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardHeader,
@@ -10,6 +11,14 @@ import { Link } from "react-router-dom";
 import LivinglabLogo from "../../../public/img/livinglab.png";
 
 export function Login() {
+  const navigate = useNavigate();
+  const token = window.localStorage.getItem("token");
+  useEffect(() => {
+    if (token) {
+      navigate("/dashboard/vehicle_count");
+    }
+  }, [token]);
+
   return (
     <div className="max-w-screen m-auto flex min-h-screen flex-col justify-center bg-green-400">
       <div className="m-auto">

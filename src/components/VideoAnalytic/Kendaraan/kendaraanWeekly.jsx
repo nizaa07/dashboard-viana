@@ -1,80 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
-import moment, { Moment } from "moment";
+import React from "react";
 import Chart from "react-apexcharts";
 
-function KendaraanWeekly({ data }) {
-  const [state, setState] = useState();
-  const [lineData, setLineData] = useState();
-  const [yearList, setYearList] = useState([]);
-  const selectedYear = useRef(null);
-  const selectedMonth = useRef(null);
-  const [filteredData, setFilteredData] = useState(data);
-  const [userSelected, setUserSelected] = useState(false);
-  const [init, setInit] = useState(true);
-  const monthList = [
-    "Januari",
-    "Februari",
-    "Maret",
-    "April",
-    "Mei",
-    "Juni",
-    "Juli",
-    "Agustus",
-    "September",
-    "Oktober",
-    "November",
-    "Desember",
-  ];
-
-  useEffect(() => {
-    const tempXData = [];
-    const tempYData = [];
-    let tempYearList = [];
-
-    for (const report of filteredData) {
-      const date = moment(report.date);
-      tempXData.push(date);
-      tempYData.push(parseInt(report.total_kendaraan));
-    }
-    for (const report of data) {
-      const date = moment(report.date);
-      tempYearList.push(date.year());
-    }
-    tempYearList = [...new Set(tempYearList)];
-    if (selectedMonth.current && selectedYear.current) {
-      let month;
-      let year;
-      if (!init) {
-        month = parseInt(selectedMonth.current.value);
-        year = parseInt(selectedYear.current.value);
-      } else {
-        month = moment().month();
-        year = moment().year();
-        setInit(false);
-      }
-      const filteredData = data.filter((report) => {
-        const date = moment(report.date);
-        return date.month() === month && date.year() === year;
-      });
-      setFilteredData(filteredData);
-    }
-    setYearList(tempYearList);
-    setLineData({
-      labels: tempXData.map((date) => date.format("DD/MM/YYYY")),
-      datasets: [
-        {
-          label: "Kendaraan per Minggu",
-          data: tempYData,
-          backgroundColor: "rgba(68, 114, 196, 0.5)",
-          borderColor: "#9E9E9E",
-        },
-      ],
-    });
-    setState({ xData: tempXData, yData: tempYData });
-  }, [data, state, userSelected, filteredData, init]);
-
+function VehicleWeekly({
+  data,
+  monthList,
+  yearList,
+  onMonthWeeklyChange,
+  onYearWeeklyChange,
+}) {
   return (
-    <div className="p-4">
+    <div>
       <div className="mb-2 flex w-full gap-4">
         <div className="flex w-1/2 flex-col">
           <label htmlFor="month" className="text-left">
@@ -84,8 +19,9 @@ function KendaraanWeekly({ data }) {
             name="month"
             id="month"
             className="rounded-lg border-2 border-gray-400 p-2"
-            ref={selectedMonth}
-            onChange={() => setUserSelected(true)}
+            onChange={(val) => {
+              onMonthWeeklyChange(parseInt(val.target.value));
+            }}
           >
             {monthList.map((date, index) => {
               return (
@@ -108,8 +44,9 @@ function KendaraanWeekly({ data }) {
             name="year"
             id="year"
             className="rounded-lg border-2 border-gray-400 p-2"
-            ref={selectedYear}
-            onChange={() => setUserSelected(true)}
+            onChange={(val) => {
+              onYearWeeklyChange(parseInt(val.target.value));
+            }}
           >
             {yearList.map((date, index) => {
               return (
@@ -125,34 +62,35 @@ function KendaraanWeekly({ data }) {
           </select>
         </div>
       </div>
-      <div>
-        {lineData ? (
-          <>
-            <Chart
-              options={{
-                chart: {
-                  id: "basic-bar",
+      {!data ? (
+        <p>Loading</p>
+      ) : (
+        <>
+          <Chart
+            options={{
+              chart: {
+                id: "basic-bar",
+                toolbar: {
+                  show: false,
                 },
-                xaxis: {
-                  categories: lineData.labels,
-                },
-              }}
-              series={[
-                {
-                  name: "series-1",
-                  data: lineData.datasets[0].data,
-                },
-              ]}
-              type="line"
-              height={400}
-            />
-          </>
-        ) : (
-          <p>Loading</p>
-        )}
-      </div>
+              },
+              xaxis: {
+                categories: data.labels,
+              },
+            }}
+            series={[
+              {
+                name: "series-1",
+                data: data.datasets[0].data,
+              },
+            ]}
+            type="line"
+            height={400}
+          />
+        </>
+      )}
     </div>
   );
 }
 
-export default KendaraanWeekly;
+export default VehicleWeekly;
