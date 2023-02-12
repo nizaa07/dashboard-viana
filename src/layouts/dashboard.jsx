@@ -19,11 +19,11 @@ export function Dashboard({ isLogin }) {
   const loginCheck = isLogin;
   console.log(loginCheck);
 
-  useEffect(() => {
-    if (!token) {
-      navigate("/login");
-    }
-  }, [token]);
+  // useEffect(() => {
+  //   if (!token) {
+  //     navigate("/login");
+  //   }
+  // }, [token]);
 
   return (
     <div className="min-h-screen bg-blue-gray-50/50">
