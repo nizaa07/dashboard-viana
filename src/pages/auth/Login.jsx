@@ -31,7 +31,7 @@ export function Login() {
         <Card className="p-20">
           <Typography className="text-xl font-bold">Login</Typography>
           <CardBody>
-            <a href="https://sso.issp.sccic-dev.com/login?app_id=63d22ce236ccee7566553862&redirect_uri=https://localhost:5173/dashboard/vehicle_count">
+            <a href="https://sso.issp.sccic-dev.com/login?app_id=63d22ce236ccee7566553862&redirect_uri=https://viana.livinglab.id/dashboard/vehicle_count/">
               <Button fullWidth color="green">
                 Login with SSO
               </Button>
