@@ -19,6 +19,7 @@ jobs:
         KEY: ${{ secrets.SSHKEY }}
         script: |
           cd /home/issp/viana/dashboard-viana
+          git pull
           docker build -t sccic/dashboard-viana .
           docker stop dashboard-viana
           docker rm dashboard-viana
