@@ -7,6 +7,10 @@ import {
   ArrowRightOnRectangleIcon,
   UserPlusIcon,
 } from "@heroicons/react/24/solid";
+import { GiCrackedGlass } from "react-icons/gi";
+import { AiFillCar } from "react-icons/ai";
+import { TbDeviceCctv } from "react-icons/tb";
+
 import {
   VehicleCounting,
   InputEndpoint,
@@ -26,33 +30,33 @@ export const routes = [
     layout: "dashboard",
     pages: [
       {
-        icon: <TruckIcon {...icon} />,
+        icon: <AiFillCar size={19} />,
         name: "Vehicle Counting",
         path: "/vehicle_count",
         title: "Vehicle Counting",
         element: <VehicleCounting />,
       },
       {
-        icon: <TruckIcon {...icon} />,
+        icon: <GiCrackedGlass size={19} />,
         name: "Crack Detection",
         path: "/crack_detection",
         title: "Crack Detection",
         element: <CrackDetection />,
       },
       {
-        icon: <TruckIcon {...icon} />,
+        icon: <TbDeviceCctv size={19} />,
         name: "Anomaly Detection",
         path: "/anomaly_detection",
         title: "Anomaly Detection",
         element: <AnomalyDetection />,
       },
-      {
-        icon: <TruckIcon {...icon} />,
-        name: "Penangkapan Ikan Terukur",
-        path: "/penangkapan_ikan_terukur",
-        title: "Penangkapan Ikan Terukur",
-        element: <PenangkapanIkanTerukur />,
-      },
+      // {
+      //   icon: <TruckIcon {...icon} />,
+      //   name: "Penangkapan Ikan Terukur",
+      //   path: "/penangkapan_ikan_terukur",
+      //   title: "Penangkapan Ikan Terukur",
+      //   element: <PenangkapanIkanTerukur />,
+      // },
       // {
       //   icon: <HomeIcon {...icon} />,
       //   name: "dashboard",

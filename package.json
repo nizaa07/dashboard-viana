@@ -12,6 +12,7 @@
     "@heroicons/react": "2.0.12",
     "@material-tailwind/react": "1.2.4",
     "apexcharts": "3.35.5",
+    "leaflet": "^1.9.3",
     "moment": "^2.29.4",
     "prop-types": "15.8.1",
     "react": "18.2.0",
@@ -19,6 +20,7 @@
     "react-dom": "18.2.0",
     "react-hls-player": "^3.0.7",
     "react-icons": "^4.7.1",
+    "react-leaflet": "^4.2.0",
     "react-router-dom": "6.4.2",
     "socket.io-client": "^4.5.3",
     "swr": "^2.0.1"
