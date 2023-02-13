@@ -1,27 +1,25 @@
 import PropTypes from "prop-types";
 import { Typography } from "@material-tailwind/react";
-import { HeartIcon } from "@heroicons/react/24/solid";
 
 export function Footer({ brandName, brandLink, routes }) {
   const year = new Date().getFullYear();
+  const footerRoutes = [
+    { name: "About Us", path: "https://citylab.itb.ac.id/sccic2/about-us/" },
+    { name: "Blog", path: "https://citylab.itb.ac.id/sccic2/category/blog/" },
+    {
+      name: "Latest News",
+      path: "https://citylab.itb.ac.id/sccic2/category/news/",
+    },
+  ];
 
   return (
     <footer className="py-2">
       <div className="flex w-full flex-wrap items-center justify-center gap-6 px-2 md:justify-between">
         <Typography variant="small" className="font-normal text-inherit">
-          &copy; {year}, made with{" "}
-          <HeartIcon className="-mt-0.5 inline-block h-3.5 w-3.5" /> by{" "}
-          <a
-            href={brandLink}
-            target="_blank"
-            className="transition-colors hover:text-blue-500"
-          >
-            {brandName}
-          </a>{" "}
-          for a better web.
+          Smart City & Community Innovation Center
         </Typography>
         <ul className="flex items-center gap-4">
-          {routes.map(({ name, path }) => (
+          {footerRoutes.map(({ name, path }) => (
             <li key={name}>
               <Typography
                 as="a"
@@ -41,13 +39,15 @@ export function Footer({ brandName, brandLink, routes }) {
 }
 
 Footer.defaultProps = {
-  brandName: "Creative Tim",
-  brandLink: "https://www.creative-tim.com",
+  brandName: "Smart City & Community Innovation Center",
+  brandLink: "https://citylab.itb.ac.id/sccic2/",
   routes: [
-    { name: "Creative Tim", path: "https://www.creative-tim.com" },
-    { name: "About Us", path: "https://www.creative-tim.com/presentation" },
-    { name: "Blog", path: "https://www.creative-tim.com/blog" },
-    { name: "License", path: "https://www.creative-tim.com/license" },
+    { name: "About Us", path: "https://citylab.itb.ac.id/sccic2/about-us/" },
+    { name: "Blog", path: "https://citylab.itb.ac.id/sccic2/category/blog/" },
+    {
+      name: "Latest News",
+      path: "https://citylab.itb.ac.id/sccic2/category/news/",
+    },
   ],
 };
 

@@ -93,40 +93,29 @@ export function VehicleCounting() {
     <Fragment>
       <div className="mt-12 flex gap-2">
         <div className="w-1/3">
-          <Card>
+          <Card className="flex flex-col gap-12">
             <CardHeader variant="gradient" color={"green"} className="p-4">
-              {/* <img
+              <img
                 className="rounded-xl"
                 src={imageUrl || NoData}
                 width="100%"
                 alt=""
-              /> */}
-              {cctvData ? (
-                <ReactHlsPlayer
-                  src="http://45.118.114.26:80/camera/Cikapayang1.m3u8"
-                  autoPlay={true}
-                  controls={false}
-                  width="100%"
-                  height="auto"
-                  playerRef={playerRef1}
-                  className="rounded"
-                />
-              ) : (
-                <Spinner />
-              )}
+              />
+            </CardHeader>
+            <CardHeader variant="gradient" color={"green"} className="p-4">
+              <ReactHlsPlayer
+                src="http://45.118.114.26:80/camera/Cikapayang1.m3u8"
+                autoPlay={true}
+                controls={false}
+                width="100%"
+                height="auto"
+                playerRef={playerRef1}
+                className="rounded"
+              />
             </CardHeader>
             <CardBody className="p-6">
               <Typography variant="h6" color="blue-gray">
                 CCTV Vehicle Counting
-              </Typography>
-              <Typography
-                variant="small"
-                className="font-normal text-blue-gray-600"
-              >
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere
-                debitis laudantium similique incidunt. Neque, sapiente. Commodi
-                soluta ex, voluptas quam consequuntur laboriosam adipisci maxime
-                accusamus rem animi deserunt, ad quidem.
               </Typography>
             </CardBody>
           </Card>
@@ -139,15 +128,6 @@ export function VehicleCounting() {
             <CardBody className="p-6">
               <Typography variant="h6" color="blue-gray">
                 Statistik Vehicle Couting
-              </Typography>
-              <Typography
-                variant="small"
-                className="font-normal text-blue-gray-600"
-              >
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Nesciunt dignissimos consequatur qui, dicta rem nihil eius illum
-                accusantium voluptatibus ab voluptate tempora quae
-                exercitationem ad labore aperiam, est placeat pariatur?
               </Typography>
             </CardBody>
           </Card>
