@@ -29,13 +29,14 @@ export function InputEndpoint() {
     e.preventDefault();
     setLoading(true);
     try {
-      let res = await fetch("http://localhost:4100/addCC", {
+      let res = await fetch("https://viana.livinglab.id/api/addCC", {
         headers: myHeaders,
         method: "POST",
         body: JSON.stringify({
           id_user: 17,
-          name: input.name,
-          rtsp_url: input.rtsp_url,
+          nama_feature: input.name,
+          nama_service: input.rtsp_url,
+          status: "100",
         }),
         redirect: "follow",
       });
