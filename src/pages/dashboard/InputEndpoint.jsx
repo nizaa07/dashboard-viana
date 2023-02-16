@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Card, Input, Button, Alert } from "@material-tailwind/react";
 
 export function InputEndpoint() {
+  document.title = "Input Endpoint CCTV | VIANA";
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "text/plain");
   const [alertHandler, setAlertHandler] = useState(true);

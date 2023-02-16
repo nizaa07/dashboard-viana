@@ -11,6 +11,7 @@ import ReactHlsPlayer from "react-hls-player/dist";
 
 import NoData from "@/assets/illust/no-data.jpg";
 const socket = io(`wss://socket-viana.gotos.id`);
+import moment from "moment";
 import io from "socket.io-client";
 
 import VAChart from "@/components/VideoAnalytic/Chart";
@@ -42,14 +43,14 @@ export function VehicleCounting() {
     };
   }, []);
 
-  const { data: chartData } = useSWR(
+  const { data: chartData, isLoading: isLoadingChart } = useSWR(
     `https://viana.livinglab.id/api/charts`,
     fetcher,
     {
       refreshInterval: 1000,
     }
   );
-  const { data: kendaraanData } = useSWR(
+  const { data: kendaraanData, isLoading: isLoadingKendaraan } = useSWR(
     `https://viana.livinglab.id/api/kendaraan`,
     fetcher,
     {
@@ -62,7 +63,7 @@ export function VehicleCounting() {
   );
 
   useEffect(() => {
-    document.title = "Vehicle Counting";
+    document.title = "Vehicle Counting | VIANA";
     if (chartData && kendaraanData) {
       setChartState({
         date: chartData.date,
@@ -92,7 +93,7 @@ export function VehicleCounting() {
   return (
     <Fragment>
       <div className="mt-12 flex gap-2">
-        <div className="w-1/3">
+        <div className="w-[45%]">
           <Card className="flex flex-col gap-12">
             <CardHeader variant="gradient" color={"green"} className="p-4">
               <img
@@ -101,17 +102,23 @@ export function VehicleCounting() {
                 width="100%"
                 alt=""
               />
+              <Typography className="py-2 font-sans font-medium tracking-wider">
+                Hasil Video Analytic
+              </Typography>
             </CardHeader>
             <CardHeader variant="gradient" color={"green"} className="p-4">
               <ReactHlsPlayer
-                src="http://45.118.114.26:80/camera/Cikapayang1.m3u8"
+                src="https://pelindung.bandung.go.id:3443/video/HIKSVISION/Dagsm.m3u8"
                 autoPlay={true}
                 controls={false}
                 width="100%"
                 height="auto"
                 playerRef={playerRef1}
-                className="rounded"
+                className="rounded border-2 border-white"
               />
+              <Typography className="py-2 font-sans font-medium tracking-wider">
+                CCTV Asli
+              </Typography>
             </CardHeader>
             <CardBody className="p-6">
               <Typography variant="h6" color="blue-gray">
@@ -120,7 +127,7 @@ export function VehicleCounting() {
             </CardBody>
           </Card>
         </div>
-        <div className="w-2/3">
+        <div className="w-[55%]">
           <Card>
             <CardHeader variant="gradient" color={"green"} className="p-4">
               {chartState ? <VAChart state={chartState} /> : <Spinner />}
