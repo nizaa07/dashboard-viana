@@ -75,9 +75,6 @@ export function DashboardNavbar({ isLogin }) {
           </Typography>
         </div>
         <div className="flex items-center">
-          {/* <div className="mr-auto md:mr-4 md:w-56">
-            <Input label="Type here" />
-          </div> */}
           <IconButton
             variant="text"
             color="blue-gray"
@@ -86,7 +83,6 @@ export function DashboardNavbar({ isLogin }) {
           >
             <Bars3Icon strokeWidth={3} className="h-6 w-6 text-blue-gray-500" />
           </IconButton>
-          {/* <a href=></a> */}
           <Link to={!loginUser ? `/login` : `#`}>
             <Button
               variant="text"
@@ -94,7 +90,11 @@ export function DashboardNavbar({ isLogin }) {
               className="hidden items-center gap-1 px-4 xl:flex"
               disable={!loginUser ? false : true}
             >
-              <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
+              <UserCircleIcon
+                className={`h-5 w-5  ${
+                  !loginUser ? "text-blue-gray-500" : "text-green-600"
+                }`}
+              />
               {!loginUser ? "Sign In" : loginUser}
             </Button>
             <IconButton
@@ -108,7 +108,7 @@ export function DashboardNavbar({ isLogin }) {
           <Link to={!loginUser ? `/login` : `#`}>
             <Button
               variant="text"
-              color="blue-gray"
+              color="red"
               className={`${!isLogin ? "block" : "hidden"}`}
               onClick={() => {
                 window.localStorage.clear();
@@ -117,13 +117,6 @@ export function DashboardNavbar({ isLogin }) {
             >
               Keluar
             </Button>
-            <IconButton
-              variant="text"
-              color="blue-gray"
-              className="grid xl:hidden"
-            >
-              <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
-            </IconButton>
           </Link>
 
           {/* <IconButton

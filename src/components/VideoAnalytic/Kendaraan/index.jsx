@@ -50,7 +50,7 @@ function Kendaraan() {
   const [yearListMonthly, setYearListMonthly] = useState([]);
   const [selectedYearMonthly, setSelectedYearMonthly] = useState(2022);
 
-  const { data: vehicleHourly } = useSwr(
+  const { data: vehicleHourly, isLoading: isLoadingHourly } = useSwr(
     `https://api.issp.sccic-dev.com/api/ll-ddg-analitik-mobilitis?pagination[limit]=2000`,
     fetcher,
     {
@@ -58,7 +58,7 @@ function Kendaraan() {
     }
   );
 
-  const { data: vehicleDaily } = useSwr(
+  const { data: vehicleDaily, isLoading: isLoadingDaily } = useSwr(
     `https://api.issp.sccic-dev.com/api/ll-ddg-analitik-mobiliti-days?pagination[limit]=2000`,
     fetcher,
     {
@@ -66,7 +66,7 @@ function Kendaraan() {
     }
   );
 
-  const { data: vehicleWeekly } = useSwr(
+  const { data: vehicleWeekly, isLoading: isLoadingWeekly } = useSwr(
     `https://api.issp.sccic-dev.com/api/ll-ddg-analitik-mobiliti-mingguans?pagination[limit]=2000`,
     fetcher,
     {
@@ -74,7 +74,7 @@ function Kendaraan() {
     }
   );
 
-  const { data: vehicleMonthly } = useSwr(
+  const { data: vehicleMonthly, isLoading: isLoadingMonthly } = useSwr(
     `https://api.issp.sccic-dev.com/api/ll-ddg-analitik-mobiliti-bulanans?pagination[limit]=2000`,
     fetcher,
     {
@@ -301,7 +301,7 @@ function Kendaraan() {
     <div className="flex flex-col md:grid md:grid-cols-2 md:gap-4">
       <div className="block rounded-lg border border-gray-200 bg-white p-6 shadow hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
         <h2 className="my-4 font-sans text-xl">Total Kendaraan per Jam</h2>
-        {vehicleHourly ? (
+        {!isLoadingHourly ? (
           <VehicleHourly
             data={lineDataHourly}
             dateList={dateListHourly}
@@ -315,7 +315,7 @@ function Kendaraan() {
       </div>
       <div className="block rounded-lg border border-gray-200 bg-white p-6 shadow hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
         <h2 className="my-4 font-sans text-xl">Total Kendaraan per Hari</h2>
-        {vehicleDaily ? (
+        {!isLoadingDaily ? (
           <VehicleDaily
             data={lineDataDaily}
             monthList={monthList}
@@ -329,7 +329,7 @@ function Kendaraan() {
       </div>
       <div className="block rounded-lg border border-gray-200 bg-white p-6 shadow hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
         <h2 className="my-4 font-sans text-xl">Total kendaraan per Minggu</h2>
-        {vehicleWeekly ? (
+        {!isLoadingWeekly ? (
           <VehicleWeekly
             data={lineDataWeekly}
             monthList={monthList}
@@ -343,7 +343,7 @@ function Kendaraan() {
       </div>
       <div className="block rounded-lg border border-gray-200 bg-white p-6 shadow hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
         <h2 className="my-4 font-sans text-xl">Totak Kendaraan per Bulan</h2>
-        {vehicleMonthly ? (
+        {!isLoadingMonthly ? (
           <VehicleMonthly
             data={lineDataMonthly}
             yearList={yearListMonthly}

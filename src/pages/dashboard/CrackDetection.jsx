@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import useSWR from "swr";
 import fetcher from "@/configs/fetcher";
@@ -15,10 +15,11 @@ const DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 export function CrackDetection() {
+  document.title = "Crack Detection | VIANA";
   const position = [-6.645847, 107.1665];
 
   function Markers() {
-    const { data: crackData } = useSWR(
+    const { data: crackData, isLoading } = useSWR(
       `https://viana.livinglab.id/api/skpj`,
       fetcher,
       {
@@ -26,10 +27,9 @@ export function CrackDetection() {
       }
     );
 
-    if (!crackData) {
+    if (isLoading) {
       return <p>loading. . .</p>;
     }
-
     const thisMap = useMap();
     return (
       <>
